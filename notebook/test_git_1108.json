@@ -1,0 +1,64 @@
+{
+	"name": "test_git_1108",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "5ba76a3e-6bc2-46de-8164-47fa065bfe11"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "python"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"import pandas\n",
+					"from azure.storage.blob import BlobServiceClient\n",
+					"import os\n",
+					"os.environ['NLS_LANG'] = \".AL32UTF8\"\n",
+					"\n",
+					"\n",
+					"# 接続文字列を指定します\n",
+					"connection_string = \"XXXX\n",
+					"# BlobServiceClientを作成します\n",
+					"blob_service_client = BlobServiceClient.from_connection_string(connection_string)\n",
+					"\n",
+					"\n",
+					"def main():\n",
+					"    # ファイルのURLを指定します\n",
+					"    # file_url = \"YYYY\"\n",
+					"    file_url = \"YYYY\"\n",
+					"    # ファイルを読み込みます\n",
+					"    df = pandas.read_csv(file_url, encoding=\"utf-8\")\n",
+					"# 呼び出し元\n",
+					"try:\n",
+					"    main()\n",
+					"except Exception as e:\n",
+					"    print(e)\n",
+					""
+				],
+				"execution_count": 10
+			}
+		]
+	}
+}

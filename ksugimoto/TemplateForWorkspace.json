@@ -7,6 +7,10 @@
 			"metadata": "ワークスペース名",
 			"defaultValue": "ksugimoto"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "'AzureSqlDatabase1' の 'connectionString' のセキュリティで保護された文字列"
+		},
 		"ksugimoto-WorkspaceDefaultSqlServer_connectionString": {
 			"type": "secureString",
 			"metadata": "'ksugimoto-WorkspaceDefaultSqlServer' の 'connectionString' のセキュリティで保護された文字列",
@@ -41,9 +45,28 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-11-10T06:02:55Z"
+				"lastPublishTime": "2023-11-12T11:49:05Z"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/ksugimoto-WorkspaceDefaultSqlServer')]",
@@ -184,9 +207,6 @@
 				},
 				"metadata": {
 					"saveOutput": true,
-					"synapse_widget": {
-						"version": "0.1"
-					},
 					"enableDebugMode": false,
 					"kernelspec": {
 						"name": "synapse_pyspark",
@@ -246,6 +266,7 @@
 					"executorMemory": "28g",
 					"executorCores": 4,
 					"numExecutors": 2,
+					"runAsWorkspaceSystemIdentity": false,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
@@ -282,6 +303,7 @@
 					"executorMemory": "28g",
 					"executorCores": 4,
 					"numExecutors": 2,
+					"runAsWorkspaceSystemIdentity": false,
 					"conf": {
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
@@ -338,6 +360,18 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/test')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "japaneast"
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/yrdy')]",
 			"type": "Microsoft.Synapse/workspaces/bigDataPools",
 			"apiVersion": "2019-06-01-preview",
@@ -357,18 +391,6 @@
 				"sparkVersion": "3.3",
 				"isComputeIsolationEnabled": false,
 				"sessionLevelPackagesEnabled": false,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "japaneast"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/test')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
 				"annotations": []
 			},
 			"dependsOn": [],
